@@ -101,7 +101,7 @@ const juan = {
         color: 'plomo',
         talla: '40',
     },
-    mascotas: ['cachetes', 'pequitas', 'panda']
+    mascotas: ['cachetes', 'pequitas', 'panda'],
 }; //object
 
 juan.nombre; //"Juan"

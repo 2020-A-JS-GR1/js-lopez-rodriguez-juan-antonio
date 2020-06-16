@@ -106,13 +106,99 @@ const juan = {
 
 juan.nombre; //"Juan"
 juan.apellido; //"Lopez"
+juan["nombre"]; //Juan
 
+/*
 const arregloNumeros = []; //object
 
 console.log(juan);
 console.log(arregloNumeros);
+*/
 
+//PARA REASIGNAR VALORES DENTRO DEL JSON
+juan.nombre = "Juanci";
+console.log(juan);
 
+juan["nombre"] = "Juan";
+console.log(juan);
+
+//Aumentar atributos
+/*
+juan.sueldo; // undefined
+console.log(juan.sueldo);//undefined
+*/
+juan.sueldo = 1.2;
+console.log(juan.sueldo);//1.2
+
+juan["gastos"] = 0.8;
+console.log(juan.gastos);//0.8
+
+//Para eliminar atributos se debe igualar a undefined
+
+juan.nombre = undefined;
+console.log(juan);
+
+// si se desea que elimine por completo y no este como undefined se usa
+delete juan.nombre; // Elimina la llave nombre
+console.log(juan);
+
+Object.keys(juan); //obtiene las llaves de un objeto
+console.log(Object.keys(juan));
+
+//obtener valores
+Object.values(juan);
+console.log(Object.values(juan));
+
+//lista de variables por valor en js
+// number
+//string
+//boolean
+//undefined
+
+//Variables por valor
+let edadJuan = 23;
+let edadVicente = edadJuan;
+console.log(edadJuan);  //23
+console.log(edadVicente); //23
+
+edadJuan = edadJuan + 1;
+console.log(edadJuan); //24
+console.log(edadVicente); //23
+
+//Variables por referencia
+//siempre apuntan al mismo lugar
+
+//Lista de variables por referencia en js
+/* //ejemplo por referencia
+let rafael = {
+    nombre: "Rafael"
+}
+let lenin = rafael;
+
+console.log(lenin); //rafael
+console.log(rafael); //rafael
+lenin.nombre = "Lenin"; //todo lo que se le hace a lenin afecta a la referencia
+console.log(lenin); //lenin
+console.log(rafael); //lenin
+
+delete rafael.nombre;
+console.log(lenin);
+console.log(rafael);
+*/
+
+//Clonar un objeto, NO igualar por referencia
+let rafael = {
+    nombre: "Rafael"
+}
+let lenin = Object.assign({}, rafael);
+
+console.log(lenin);
+console.log(rafael);
+
+lenin.nombre = "Lenin";
+delete rafael.nombre;
+console.log(lenin); // lenin
+console.log(rafael); //{}
 
 
 

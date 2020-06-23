@@ -137,9 +137,93 @@ const respuestaFilter = arreglo
             return valorActual.nota >=14;
         }
     );
-console.log('.filter')
+console.log('filter')
 console.log('respuestaFilter', respuestaFilter);
 console.log('arreglo', arreglo);
+
+
+//SEGUNDA CLASE
+
+//SOME -> expresion
+//DEVUELVE BOOLEANO
+//Hay ALGUNA nota menor a nueve? SI o NO
+//OR
+const respuestaSome = arreglo
+    .some(
+        (valorActual, indiceActual, arregloCompleto)=>{
+            return valorActual.nota < 4;
+        }
+    )
+console.log("SOME")
+console.log('respuestaSome', respuestaSome)
+
+//EVERY
+//DEVUELVE BOOLEANO
+//Todas las notas son mayores a 14? SI o NO
+//AND
+const respuestaEvery = arreglo
+    .every(
+        (valorActual, indiceActual, arregloCompleto)=>{
+            return valorActual.nota < 4;
+        }
+    )
+console.log("EVERY")
+console.log('respuestaEvery', respuestaEvery)
+
+
+//REDUCE
+//reduce    Empieza las operaciones de izq -> der
+//reduceRight   der -> izq
+
+//Promedio de todas las notas del curso
+const respuestaReduce = arreglo
+    .reduce(
+        (valorAcumulado, valorActual, indice, arreglo)=>{
+            return valorAcumulado + valorActual.nota;
+        },
+        0 //acumulador
+    )
+
+console.log("REDUCE")
+console.log('respuestaReduce', respuestaReduce) //124
+
+//Al acumulador de 500 le quiero restar el valor del total de las notas
+//Como si 500 fuese la vida en un juego y las notas sean vida que se va perdiendo
+const respuestaReduce2 = arreglo
+    .reduce(
+        (valorAcumulado, valorActual, indice, arreglo)=>{
+            return valorAcumulado - valorActual.nota;
+        },
+        500 //acumulador
+    )
+
+console.log("REDUCE2")
+console.log('respuestaReduce2', respuestaReduce2) //500 - 124
+
+
+//aumentar %30 de la nota
+//sacar menores a 9
+// sacar promedio
+const arregloEstudiantesMenoresANueve = arreglo
+    .map((v) => v.nota * 1.3) // anadiendo el 30 %
+    .filter((nota) => nota < 9); // Busco a los < 9
+const totalPuntosEstudiantes = arregloEstudiantesMenoresANueve
+    .reduce((acumulado, actual) => acumulado + actual, 0); // total
+const notaPromedio = totalPuntosEstudiantes / arregloEstudiantesMenoresANueve.length;
+console.log('notaPromedio', notaPromedio);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

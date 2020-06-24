@@ -59,3 +59,28 @@ const arreglo = [
         nota:12
     }
 ];
+
+arreglo.forEach((persona) => console.log(persona.nombre, " nota:",persona.nota))
+
+const vocales = ['a', 'e', 'i', 'o', 'u'];
+const arregloModificado = Object.assign(arreglo);
+
+arregloModificado.forEach((persona) => {
+    for (caracter of persona.nombre) {
+        if(vocales.indexOf(caracter) !== -1){
+            persona.nota += 0.1
+        }else{
+            persona.nota += 0.05
+        }
+    }
+});
+
+console.log('MODIFICADO');
+arregloModificado.forEach((persona) => console.log(persona.nombre, " nota:",persona.nota.toFixed(2)));
+
+const pasaron = arregloModificado.filter(persona => (persona.nota >= 14));
+console.log("PASARON");
+console.log(pasaron);
+
+
+

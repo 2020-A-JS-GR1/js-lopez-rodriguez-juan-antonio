@@ -63,7 +63,7 @@ const arreglo = [
 arreglo.forEach((persona) => console.log(persona.nombre, " nota:",persona.nota))
 
 const vocales = ['a', 'e', 'i', 'o', 'u'];
-const arregloModificado = Object.assign(arreglo);
+const arregloModificado = Object.assign([],arreglo);
 
 arregloModificado.forEach((persona) => {
     for (caracter of persona.nombre) {
@@ -74,6 +74,7 @@ arregloModificado.forEach((persona) => {
         }
     }
 });
+
 
 console.log('MODIFICADO');
 arregloModificado.forEach((persona) => console.log(persona.nombre, " nota:",persona.nota.toFixed(2)));

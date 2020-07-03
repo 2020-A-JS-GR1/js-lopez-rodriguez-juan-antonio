@@ -8,7 +8,6 @@ fs.readFile (path, codificación, callback (error, contenido))
 fs.writeFile (path,contenido, codificación, callback(error))
 */
 function promesaLeerArchivo(path) {
-    // Se puede tener a la promesa por fuera, no necesita de la función, pero sin la función no puede recibir parámetros
     const promesaLectura = new Promise(
         (resolve, reject) => {
             fs.readFile(
@@ -16,7 +15,7 @@ function promesaLeerArchivo(path) {
                 'utf-8',
                 (error, contenido) => {
                     if (error) {
-                        console.log('Hubo un error al leer\n', error);
+                        console.log('error al leer\n', error);
                         reject(error);
                     } else {
                         console.log(contenido + '\n');
@@ -37,10 +36,10 @@ function promesaEscribirArchivo(path, contenido, contenidoNuevo) {
                 'utf-8',
                 error => {
                     if (error) {
-                        console.log('Hubo un error al escribir\n', error);
+                        console.log('error al escribir\n', error);
                         reject(error);
                     } else {
-                        resolve('Escritura Realizada\n');
+                        resolve('Fin escritura\n');
                     }
                 });
         }

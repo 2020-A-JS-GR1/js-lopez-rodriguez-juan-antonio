@@ -144,11 +144,20 @@ async function main() {
             const colegiosJson = await promesaLeerArchivo('./registro.json')
             //console.log('ColegiosJson>', colegiosJson);
             console.log('tipo', typeof(colegiosJson) );
-            const arrayColegios = colegiosJson.cole
-            //console.log(arrayColegios);
+            const arrayColegios = Array.from(colegiosJson['colegios']);
+            const longitud = arrayColegios.length;
+            arrayColegios[longitud] = respuesta;
+            //console.log('array', arrayColegios[0]);
+            console.log(arrayColegios)
 
 
-            //const arregloColegiosCompleto = [arrayColegios].push(respuesta);
+
+
+            // console.log('arraycolegios',arrayColegios.push(Array.from(respuesta)));
+            // console.log('tipo',typeof(arrayColegios));
+
+
+//            const arregloColegiosCompleto = [arrayColegios].push(respuesta);
             //console.log('con el nuevo',arregloColegiosCompleto);
 
             //  const nuevoColegio = {'nombre': respuesta.nombreC, 'direccion': respuesta.direccion, 'aforo': respuesta.aforo};

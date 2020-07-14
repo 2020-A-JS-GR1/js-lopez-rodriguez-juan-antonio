@@ -139,14 +139,21 @@ async function main() {
                         message: 'Ingresa el aforo:'
                     }
                 ]);
-//            console.log('Respuesta', respuesta);
+            console.log('Respuesta', respuesta);
 
-            const arrayColegios JSON.parse(leerArchivo('./registro.json'));
-            const nuevoColegio = {'nombre': respuesta.nombreC, 'direccion': respuesta.direccion, 'aforo': respuesta.aforo};
-            console.log('lectura: ', arrayColegios)
-            arrayColegios.push(nuevoColegio);
-            const jsonColegios = {'colegios': arrayColegios}
-            console.log(JSON.stringify(arrayColegios));
+            const colegiosJson = await promesaLeerArchivo('./registro.json')
+            //console.log('ColegiosJson>', colegiosJson);
+            console.log('tipo', typeof(colegiosJson) );
+            const arrayColegios = colegiosJson.cole
+            //console.log(arrayColegios);
+
+
+            //const arregloColegiosCompleto = [arrayColegios].push(respuesta);
+            //console.log('con el nuevo',arregloColegiosCompleto);
+
+            //  const nuevoColegio = {'nombre': respuesta.nombreC, 'direccion': respuesta.direccion, 'aforo': respuesta.aforo};
+            //  const jsonColegios = {'colegios': arrayColegios}
+          //  console.log(JSON.stringify(arrayColegios));
 
             //escribirArchivo('./registro.json', JSON.stringify(jsonColegios))
 
@@ -174,17 +181,26 @@ async function main() {
         });
     }
 
-    function leerArchivo(path) {
-        fs.readFile(path, 'utf-8', (error, contenidoLeido) =>{
-            if(error){
-                console.log('Hubo error', error);
-            }else{
-                //console.log(contenidoLeido);
-                return console.log(JSON.parse(contenidoLeido).colegios);
-                //return JSON.parse(contenidoLeido).colegios;
+    function promesaLeerArchivo(path) {
+        const promesaLectura = new Promise(
+            (resolve, reject) => {
+                fs.readFile(
+                    path,
+                    'utf-8',
+                    (error, contenido) => {
+                        if (error) {
+                            console.log('error al leer\n', error);
+                            reject(error);
+                        } else {
+                            //console.log(contenido + '\n');
+                            resolve(JSON.parse(contenido));
+                        }
+                    });
             }
-        });
+        );
+        return promesaLectura;
     }
+
 
 }
 

@@ -53,7 +53,7 @@ function escribirArchivo(path, contenidoNuevo) {
 
 }
 
-escribirArchivo('./06-ejemplo.txt','Buenas Tardes mio')
+escribirArchivo('./06-ejemplo.js.txt','Buenas Tardes mio')
 
 
 

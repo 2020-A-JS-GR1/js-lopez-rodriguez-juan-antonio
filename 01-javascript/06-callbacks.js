@@ -3,7 +3,7 @@ const fs = require('fs');
 console.log('Primero'); //SINCRONO
 
 fs.readFile( //ASINCRONO
-    './06-ejemplo.txt',
+    './06-ejemplo.js.txt',
     'utf-8',
     (error, contenido)=>{  //CALLBACK
         console.log('Segundo');

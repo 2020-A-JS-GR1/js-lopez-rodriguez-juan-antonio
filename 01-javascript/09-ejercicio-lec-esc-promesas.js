@@ -68,4 +68,4 @@ function ejercicio(path, contenidoNuevo) {
 }
 
 
-ejercicio('./06-ejemplo.txt', 'Promesa')
+ejercicio('./06-ejemplo.js.txt', 'Promesa')

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const pathArchivo = './01-ejemplo.txt'
+const pathArchivo = './01-ejemplo.js.txt'
 const contenidoNuevo = 'Buenos dias Hola x2'
 
 function promesaLeerArchivo(path) {

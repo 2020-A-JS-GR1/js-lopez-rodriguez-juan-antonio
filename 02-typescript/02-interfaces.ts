@@ -21,7 +21,7 @@ interface Usuario {
     calcularImpuesto: (impuesto:number) => number;
     estadoActual: () => 'AP' | 'AF' | 'AT';
 }
-d
+
 
 
 const juan : Usuario | number = {

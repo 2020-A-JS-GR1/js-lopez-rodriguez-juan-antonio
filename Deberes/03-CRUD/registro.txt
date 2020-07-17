@@ -1,0 +1,3 @@
+{"nombreC":"3333","direccion":"2222","aforo":"2222"}
+{"nombreC":"4444","direccion":"3333","aforo":"2222"}
+{"nombreC":"5555","direccion":"5555","aforo":"5555"}

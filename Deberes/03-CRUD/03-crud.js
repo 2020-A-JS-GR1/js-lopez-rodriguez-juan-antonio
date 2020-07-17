@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 async function main() {
+const path = './registro.txt';
 
     //menu
     async function menu() {
@@ -53,18 +54,15 @@ async function main() {
                     console.log('Creando colegio');
                     break;
                 case '2) Consultar colegios':
-                    //consultarColegio();
-                    console.log('Consultando colegio');
-                    leerArchivo('./registro.json');
+                    menuConsultarColegios();
 
                     break;
-                case '3) Actualizar colegios':
-                    //actualizarColegio();
-                    console.log('Actualizar colegio');
+                case '3) Actualizar colegio':
+                    console.log('Actualizando colegio');
+                    actualizarColegio()
                     break;
-                case '4) Eliminar colegios':
-                    //eliminarColegio();
-                    console.log('Eliminar colegio');
+                case '4) Eliminar colegio':
+                    borrarColegio();
                     break;
                 case '5) Atras':
                     menu();
@@ -116,12 +114,47 @@ async function main() {
         }
     }
 
+    async function menuConsultarColegios() {
+        try{
+            const menuConsultarColegios = await inquirer
+                .prompt([
+                    {
+                        type: 'list',
+                        name: 'seleccion',
+                        message: 'Seleccione una opcion',
+                        choices: [
+                            '1) Consultar TODOS',
+                            '2) Consultar un colegios',
+                            '3) Atras'
+
+                        ]
+                    }
+                ]);
+            switch (menuConsultarColegios.seleccion) {
+                case '1) Consultar TODOS':
+                    const respuestaConsultarTodosLosColegios = await consultarTodosLosColegio();
+                    console.log(respuestaConsultarTodosLosColegios);
+                    menuColegios();
+                    break;
+                case '2) Consultar un colegios':
+                    const respuestaConsultarColegio = await consultarColegio();
+                    console.log(respuestaConsultarColegio);
+                    menuColegios();
+                    break;
+                case '3) Atras':
+                    menuColegios();
+            }
+        } catch(e){
+            console.error(e);
+        }
+    }
+
     menu();
 
-    //create colegio
+    //crear colegio
     async function crearColegio() {
         try {
-            const respuesta = await inquirer
+            const respuestaCrearColegio = await inquirer
                 .prompt([
                     {
                         type: 'input',
@@ -139,77 +172,236 @@ async function main() {
                         message: 'Ingresa el aforo:'
                     }
                 ]);
-            console.log('Respuesta', respuesta);
-
-            const colegiosJson = await promesaLeerArchivo('./registro.json')
-            //console.log('ColegiosJson>', colegiosJson);
-            console.log('tipo', typeof(colegiosJson) );
-            const arrayColegios = Array.from(colegiosJson['colegios']);
-            const longitud = arrayColegios.length;
-            arrayColegios[longitud] = respuesta;
-            //console.log('array', arrayColegios[0]);
-            console.log(arrayColegios)
-
-
-
-
-            // console.log('arraycolegios',arrayColegios.push(Array.from(respuesta)));
-            // console.log('tipo',typeof(arrayColegios));
-
-
-//            const arregloColegiosCompleto = [arrayColegios].push(respuesta);
-            //console.log('con el nuevo',arregloColegiosCompleto);
-
-            //  const nuevoColegio = {'nombre': respuesta.nombreC, 'direccion': respuesta.direccion, 'aforo': respuesta.aforo};
-            //  const jsonColegios = {'colegios': arrayColegios}
-          //  console.log(JSON.stringify(arrayColegios));
-
-            //escribirArchivo('./registro.json', JSON.stringify(jsonColegios))
-
-
+            console.log('Nuevo Colegio: ', respuestaCrearColegio);
+            const respuestaLeerArchivo= await promesaLeerArchivo(path);
+            if (respuestaLeerArchivo !== '') {
+                await promesaEscribirColegio(respuestaLeerArchivo + '\n' + JSON.stringify(respuestaCrearColegio));
+            } else {
+                await promesaEscribirColegio(JSON.stringify(respuestaCrearColegio));
+            }
+            //console.log('Colegio registrado');
+            menuColegios();
         } catch (e) {
             console.error(e);
         }
     }
 
+    //consultar colegio
+    async function consultarColegio() {
+        try {
+            const nombreAConsultar = await inquirer
+                .prompt([
+                    {
+                        type: 'input',
+                        name: 'nombreC',
+                        message: 'Ingrese el nombre del colegio:'
+                    }
+                ]);
+           // console.log('Consultar colegio: ', nombreAConsultar);
+            const colegios = await promesaLeerArchivo(path);
+           // console.log(colegios);
+            let arrayColegios = [];
+            if (colegios !== '') {
+                arrayColegios = colegios.split('\n').map(
+                    valorActual => {
+                        return JSON.parse(valorActual);
+                    }
+                );
+                //console.log('arrayColegios',arrayColegios);
+            }
 
-    async function escribirArchivo(path, contenidoNuevo) {
-        fs.readFile(path, 'utf-8', (error, contenidoLeido) =>{
-            if(error){
-                console.log('Hubo error', error);
-            }else{
-                fs.writeFile(path, contenidoLeido +'\n' + contenidoNuevo, 'utf-8', (error)=> {
+            if (arrayColegios.length === 0) {
+                return 'No hay colegios registrados';
+            } else {
+                    if (arrayColegios.some(
+                            valorActual => {
+                                return valorActual.nombreC === nombreAConsultar.nombreC;
+                            }
+                        )) {
+                        return (arrayColegios.filter(
+                                    (valorActual) => {
+                                        return valorActual.nombreC === nombreAConsultar.nombreC;
+                                    }
+                                )
+                        );
+                    } else {
+                        return 'No existe el colegio: ' + nombreAConsultar.nombreC;
+                    }
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async function consultarTodosLosColegio() {
+        try {
+            const colegios = await promesaLeerArchivo(path);
+             //console.log(colegios);
+            let arrayColegios = [];
+            if (colegios !== '') {
+                arrayColegios = colegios.split('\n').map(
+                    valorActual => {
+                        return JSON.parse(valorActual);
+                    }
+                );
+                //console.log('arrayColegios',arrayColegios);
+            }
+            if (arrayColegios.length === 0) {
+                return 'No hay colegios registrados';
+            } else {
+                return (arrayColegios);
+
+
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async function borrarColegio() {
+        try {
+            const colegios = await promesaLeerArchivo(path);
+            console.log(colegios);
+            let arrayColegios = [];
+            if (colegios !== '') {
+                arrayColegios = colegios.split('\n').map(
+                    valorActual => {
+                        return JSON.parse(valorActual);
+                    }
+                );
+                //console.log('arrayColegios',arrayColegios);
+            }
+            if (arrayColegios.length === 0) {
+                return 'No hay colegios registrados';
+            } else {
+                const respuestaSelecBorrar = await promesaSeleccionarColegio(arrayColegios.map(
+                    valorActual => {
+                        return valorActual.nombreC;
+                    }
+                ));
+                arrayColegios.splice(arrayColegios.findIndex(
+                    valorActual => {
+                        return valorActual.nombreC === respuestaSelecBorrar.borrarColegio;
+                    }
+                ), 1);
+                await promesaEscribirColegio(actualizarRegistro(arrayColegios));
+            }
+            //console.log('Colegio eliminado');
+            menuColegios();
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async function actualizarColegio(){
+        try{
+            const colegios = await promesaLeerArchivo(path);
+            console.log(colegios);
+            let arrayColegios = [];
+            if (colegios !== '') {
+                arrayColegios = colegios.split('\n').map(
+                    valorActual => {
+                        return JSON.parse(valorActual);
+                    }
+                );
+                //console.log('arrayColegios',arrayColegios);
+            }
+            if (arrayColegios.length === 0) {
+                return 'No hay colegios registrados';
+            } else {
+                const respuestaSelecBorrar = await promesaSeleccionarColegio(arrayColegios.map(
+                    valorActual => {
+                        return valorActual.nombreC;
+                    }
+                ));
+                arrayColegios.splice(arrayColegios.findIndex(
+                    valorActual => {
+                        return valorActual.nombreC === respuestaSelecBorrar.borrarColegio;
+                    }
+                ), 1);
+                await promesaEscribirColegio(actualizarRegistro(arrayColegios));
+            }
+            await crearColegio();
+            console.log('Colegio actualizado');
+            menuColegios();
+        }catch (e) {
+            console.error(e);
+        }
+
+    }
+
+    const promesaSeleccionarColegio = (colegios) => {
+        return inquirer
+            .prompt({
+                type: 'list',
+                name: 'borrarColegio',
+                message: 'Seleccione el colegio que desea eliminar:',
+                choices: colegios,
+            });
+    }
+
+    const promesaSeleccionarColegioActualizar = (colegios) => {
+        return inquirer
+            .prompt({
+                type: 'list',
+                name: 'actualizarColegio',
+                message: 'Seleccione el colegio que desea eliminar:',
+                choices: colegios,
+            });
+    }
+
+
+    function actualizarRegistro(arrayColegios) {
+        let listaActualizada = '';
+        arrayColegios.map(
+            (valorActual, indiceActual) => {
+                if (indiceActual < arrayColegios.length - 1) {
+                    listaActualizada = listaActualizada + JSON.stringify(valorActual) + '\n';
+                } else {
+                    listaActualizada = listaActualizada + JSON.stringify(valorActual);
+                }
+
+            }
+        );
+        return listaActualizada;
+    }
+
+    const promesaEscribirColegio = (contenidoNuevo) => {
+        return new Promise(
+            (resolve, reject) => {
+                fs.writeFile(
+                    path,
+                    contenidoNuevo,
+                    'utf-8',
+                    (error) => {
                         if (error) {
-                            console.log('Hubo error', error);
+                            reject(error);
                         } else {
-                            console.log("escrito")
+                            resolve();
                         }
                     }
                 );
             }
-        });
+        );
     }
 
-    function promesaLeerArchivo(path) {
-        const promesaLectura = new Promise(
+    const promesaLeerArchivo = (path) => {
+        return new Promise(
             (resolve, reject) => {
                 fs.readFile(
                     path,
                     'utf-8',
                     (error, contenido) => {
                         if (error) {
-                            console.log('error al leer\n', error);
                             reject(error);
                         } else {
-                            //console.log(contenido + '\n');
-                            resolve(JSON.parse(contenido));
+                            resolve(contenido);
                         }
-                    });
+                    }
+                );
             }
         );
-        return promesaLectura;
     }
-
 
 }
 

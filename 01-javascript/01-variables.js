@@ -169,7 +169,7 @@ console.log(edadVicente); //23
 //siempre apuntan al mismo lugar
 
 //Lista de variables por referencia en js
-/* //ejemplo por referencia
+/* //ejemplo.js por referencia
 let rafael = {
     nombre: "Rafael"
 }

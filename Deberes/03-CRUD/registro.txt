@@ -1,2 +1,2 @@
-{"nombreC":"Sagrado Corazon","direccion":"Av la prensa","aforo":400,"boolBachilleratoUnificado":true,"licencia":false}
-{"nombreC":"Bernardino","direccion":"Amazonas","aforo":666,"boolBachilleratoUnificado":true,"licencia":true}
+{"nombreC":"333","direccion":"22","aforo":22,"boolBachilleratoUnificado":true,"licencia":true,"profesores":[]}
+{"nombreC":"22","direccion":"22","aforo":22,"boolBachilleratoUnificado":true,"licencia":true,"profesores":[{"nombreP":"s","especialidad":"s","edad":null,"casado":true,"doctorado":true},{"nombreP":"d","especialidad":"d","edad":null,"casado":false,"doctorado":false}]}

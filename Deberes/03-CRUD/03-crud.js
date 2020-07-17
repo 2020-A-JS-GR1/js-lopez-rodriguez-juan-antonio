@@ -92,6 +92,7 @@ const path = './registro.txt';
             switch (menu2profesores.seleccion2) {
                 case '1) Crear profesor':
                     //crearProfesor();
+                    await crearProfesor();
                     console.log('Creando profesor');
                     break;
                 case '2) Consultar profesor':
@@ -191,16 +192,9 @@ const path = './registro.txt';
                 direccion: respuestaCrearColegio.direccion,
                 aforo: parseInt(respuestaCrearColegio.aforo),
                 boolBachilleratoUnificado: boolBachilleratoUnificado,
-                licencia: boolLicencia
+                licencia: boolLicencia,
+                profesores: []
             }
-               /* {
-                nombreC: '1111111',
-                direccion: '111111111',
-                aforo: '22222222',
-                bachilleratoUnificado: '2222222',
-                licencia: '22222'
-            }*/
-
             const respuestaLeerArchivo= await promesaLeerArchivo(path);
             if (respuestaLeerArchivo !== '') {
                 await promesaEscribirColegio(respuestaLeerArchivo + '\n' + JSON.stringify(respuestaCrearColegioTypado));
@@ -419,16 +413,149 @@ const path = './registro.txt';
         );
     }
 
-    const promesaSeleccionarColegioActualizar = (colegios) => {
+    const promesaSeleccionarColegioParaCrearProfesor = (colegios) => {
         return inquirer
             .prompt({
                 type: 'list',
-                name: 'actualizarColegio',
-                message: 'Seleccione el colegio que desea eliminar:',
+                name: 'crearProfesorEnColegio',
+                message: 'Seleccione el colegio al que desea agregar un profesor:',
                 choices: colegios,
             });
     }
 
+
+    async function crearProfesor() {
+        try {
+
+            const todosColegios = await promesaLeerArchivo(path);
+            console.log('colegios',todosColegios);
+            let arrayColegios = [];
+            if (todosColegios.length === 0) {
+                console.log('No hay colegios registrados');
+            } else {
+            if (todosColegios !== '') {
+                arrayColegios = todosColegios.split('\n').map(
+                    valorActual => {
+                        return JSON.parse(valorActual);
+                    });
+                console.log('arrayColegios',arrayColegios);
+
+                const respuestaSelecCrearProfesor = await promesaSeleccionarColegioParaCrearProfesor(arrayColegios.map(
+                    valorActual => {
+                        return valorActual.nombreC;
+                    }
+                ));
+                // console.log('respuestaSelecCrearProfesor',respuestaSelecCrearProfesor)
+                const colegios = arrayColegios.splice(arrayColegios.findIndex(
+                    valorActual => {
+                        //console.log('valorActual',valorActual)
+                        if (valorActual.nombreC === respuestaSelecCrearProfesor.crearProfesorEnColegio) {
+                            return valorActual;
+                        }
+                    }
+                ), 1);
+                await promesaEscribirColegio(actualizarRegistro(arrayColegios));
+                const colegio = colegios[0];
+
+                const respuestaCrearProfesor = await inquirer
+                    .prompt([
+                        {
+                            type: 'input',
+                            name: 'nombreP',
+                            message: 'Ingresa el nombre del profesor:'
+                        },
+                        {
+                            type: 'input',
+                            name: 'especialidad',
+                            message: 'Ingresa la especialidad:'
+                        },
+                        {
+                            type: 'input',
+                            name: 'edad',
+                            message: 'Ingresa la edad:'
+                        },
+                        {
+                            type: 'input',
+                            name: 'casado',
+                            message: 'Es casado?(S/N):'
+                        },
+                        {
+                            type: 'input',
+                            name: 'doctorado',
+                            message: 'Tiene doctorado?(S/N):'
+                        }
+
+                    ]);
+                console.log('Nuevo Profesor: ', respuestaCrearProfesor);
+                const boolCasado = (/S/i).test(respuestaCrearProfesor.casado);
+                const boolDoctorado = (/S/i).test(respuestaCrearProfesor.doctorado);
+                const respuestaCrearProfesorTypado = {
+                    nombreP: respuestaCrearProfesor.nombreP,
+                    especialidad: respuestaCrearProfesor.especialidad,
+                    edad: parseInt(respuestaCrearProfesor.edad),
+                    casado: boolCasado,
+                    doctorado: boolDoctorado
+                }
+
+                console.log('JAJAJAJ',colegio.profesores)
+                colegio.profesores.push(respuestaCrearProfesorTypado);
+                console.log('JAJAJAJ',colegio.profesores)
+
+
+                //      colegio.profesores = respuestaCrearProfesorTypado;
+//                console.log('colegioProfesores', colegio)
+
+                const respuestaLeerArchivo = await promesaLeerArchivo(path);
+                if (respuestaLeerArchivo !== '') {
+                    await promesaEscribirColegio(respuestaLeerArchivo + '\n' + JSON.stringify(colegio));
+                } else {
+                    await promesaEscribirColegio(JSON.stringify(colegio));
+                }
+
+                //console.log('Colegio registrado');
+                //menuColegios();
+
+
+            }
+            }
+            menu();
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+
+    async function elegirColegioDondeCrearProfesor() {
+        try {
+            const colegios = await promesaLeerArchivo(path);
+            console.log(colegios);
+            let arrayColegios = [];
+            if (colegios !== '') {
+                arrayColegios = colegios.split('\n').map(
+                    valorActual => {
+                        return JSON.parse(valorActual);
+                    }
+                );
+                //console.log('arrayColegios',arrayColegios);
+            }
+            if (arrayColegios.length === 0) {
+                return 'No hay colegios registrados';
+            } else {
+                const respuestaSelecColegio = await promesaSeleccionarColegioParaCrearProfesor(arrayColegios.map(
+                    valorActual => {
+                        return valorActual.nombreC;
+                    }
+                ));
+                return respuestaSelecColegio;
+               // console.log('respuestaSelecColegio',  respuestaSelecColegio)
+
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
 
 

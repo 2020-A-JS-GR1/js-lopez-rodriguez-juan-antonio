@@ -1,3 +1,2 @@
-{"nombreC":"3333","direccion":"2222","aforo":"2222"}
-{"nombreC":"4444","direccion":"3333","aforo":"2222"}
-{"nombreC":"5555","direccion":"5555","aforo":"5555"}
+{"nombreC":"Sagrado Corazon","direccion":"Av la prensa","aforo":400,"boolBachilleratoUnificado":true,"licencia":false}
+{"nombreC":"Bernardino","direccion":"Amazonas","aforo":666,"boolBachilleratoUnificado":true,"licencia":true}

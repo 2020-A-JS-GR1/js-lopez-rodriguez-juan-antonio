@@ -151,7 +151,7 @@ const path = './registro.txt';
 
     menu();
 
-    //crear colegio
+    //Funciones para CRUD
     async function crearColegio() {
         try {
             const respuestaCrearColegio = await inquirer
@@ -170,14 +170,42 @@ const path = './registro.txt';
                         type: 'input',
                         name: 'aforo',
                         message: 'Ingresa el aforo:'
+                    },
+                    {
+                        type: 'input',
+                        name: 'bachilleratoUnificado',
+                        message: 'Tiene bachillerato unificado?(S/N):'
+                    },
+                    {
+                        type: 'input',
+                        name: 'licencia',
+                        message: 'Tiene licencia del ministerio?(S/N):'
                     }
+
                 ]);
             console.log('Nuevo Colegio: ', respuestaCrearColegio);
+            const boolBachilleratoUnificado = (/S/i).test(respuestaCrearColegio.bachilleratoUnificado)
+            const boolLicencia = (/S/i).test(respuestaCrearColegio.licencia)
+            const respuestaCrearColegioTypado = {
+                nombreC: respuestaCrearColegio.nombreC,
+                direccion: respuestaCrearColegio.direccion,
+                aforo: parseInt(respuestaCrearColegio.aforo),
+                boolBachilleratoUnificado: boolBachilleratoUnificado,
+                licencia: boolLicencia
+            }
+               /* {
+                nombreC: '1111111',
+                direccion: '111111111',
+                aforo: '22222222',
+                bachilleratoUnificado: '2222222',
+                licencia: '22222'
+            }*/
+
             const respuestaLeerArchivo= await promesaLeerArchivo(path);
             if (respuestaLeerArchivo !== '') {
-                await promesaEscribirColegio(respuestaLeerArchivo + '\n' + JSON.stringify(respuestaCrearColegio));
+                await promesaEscribirColegio(respuestaLeerArchivo + '\n' + JSON.stringify(respuestaCrearColegioTypado));
             } else {
-                await promesaEscribirColegio(JSON.stringify(respuestaCrearColegio));
+                await promesaEscribirColegio(JSON.stringify(respuestaCrearColegioTypado));
             }
             //console.log('Colegio registrado');
             menuColegios();
@@ -186,7 +214,6 @@ const path = './registro.txt';
         }
     }
 
-    //consultar colegio
     async function consultarColegio() {
         try {
             const nombreAConsultar = await inquirer
@@ -335,21 +362,10 @@ const path = './registro.txt';
             .prompt({
                 type: 'list',
                 name: 'borrarColegio',
-                message: 'Seleccione el colegio que desea eliminar:',
+                message: 'Seleccione el colegio:',
                 choices: colegios,
             });
     }
-
-    const promesaSeleccionarColegioActualizar = (colegios) => {
-        return inquirer
-            .prompt({
-                type: 'list',
-                name: 'actualizarColegio',
-                message: 'Seleccione el colegio que desea eliminar:',
-                choices: colegios,
-            });
-    }
-
 
     function actualizarRegistro(arrayColegios) {
         let listaActualizada = '';
@@ -402,6 +418,19 @@ const path = './registro.txt';
             }
         );
     }
+
+    const promesaSeleccionarColegioActualizar = (colegios) => {
+        return inquirer
+            .prompt({
+                type: 'list',
+                name: 'actualizarColegio',
+                message: 'Seleccione el colegio que desea eliminar:',
+                choices: colegios,
+            });
+    }
+
+
+
 
 }
 

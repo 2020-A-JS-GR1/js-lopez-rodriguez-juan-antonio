@@ -1,2 +1,2 @@
+{"nombreC":"22","direccion":"22","aforo":22,"boolBachilleratoUnificado":true,"licencia":true,"profesores":[{"nombreP":"ll","especialidad":"ll","edad":88,"casado":false,"doctorado":true},{"nombreP":"tttt","especialidad":"trt","edad":34,"casado":true,"doctorado":false},{"nombreP":"ee","especialidad":"ee","edad":44,"casado":false,"doctorado":false}]}
 {"nombreC":"333","direccion":"22","aforo":22,"boolBachilleratoUnificado":true,"licencia":true,"profesores":[]}
-{"nombreC":"22","direccion":"22","aforo":22,"boolBachilleratoUnificado":true,"licencia":true,"profesores":[{"nombreP":"s","especialidad":"s","edad":null,"casado":true,"doctorado":true},{"nombreP":"d","especialidad":"d","edad":null,"casado":false,"doctorado":false}]}

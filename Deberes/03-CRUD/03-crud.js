@@ -93,7 +93,7 @@ const path = './registro.txt';
                 case '1) Crear profesor':
                     //crearProfesor();
                     await crearProfesor();
-                    console.log('Creando profesor');
+                    //console.log('Creando profesor');
                     break;
                 case '2) Consultar profesor':
                     //consultarProfesor();
@@ -106,6 +106,7 @@ const path = './registro.txt';
                 case '4) Eliminar profesor':
                     //eliminarProfesor();
                     console.log('Eliminar profesor');
+                    eliminarProfesor();
                     break;
                 case '5) Atras':
                     menu();
@@ -418,8 +419,18 @@ const path = './registro.txt';
             .prompt({
                 type: 'list',
                 name: 'crearProfesorEnColegio',
-                message: 'Seleccione el colegio al que desea agregar un profesor:',
+                message: 'Seleccione el colegio al que pertenece el profesor:',
                 choices: colegios,
+            });
+    }
+
+    const promesaSeleccionarProfesorEliminar = (profesores) => {
+        return inquirer
+            .prompt({
+                type: 'list',
+                name: 'eliminarProfesor',
+                message: 'Seleccione el profesor al que desea eliminar:',
+                choices: profesores,
             });
     }
 
@@ -428,7 +439,7 @@ const path = './registro.txt';
         try {
 
             const todosColegios = await promesaLeerArchivo(path);
-            console.log('colegios',todosColegios);
+            //console.log('colegios',todosColegios);
             let arrayColegios = [];
             if (todosColegios.length === 0) {
                 console.log('No hay colegios registrados');
@@ -438,7 +449,7 @@ const path = './registro.txt';
                     valorActual => {
                         return JSON.parse(valorActual);
                     });
-                console.log('arrayColegios',arrayColegios);
+                //console.log('arrayColegios',arrayColegios);
 
                 const respuestaSelecCrearProfesor = await promesaSeleccionarColegioParaCrearProfesor(arrayColegios.map(
                     valorActual => {
@@ -486,7 +497,7 @@ const path = './registro.txt';
                         }
 
                     ]);
-                console.log('Nuevo Profesor: ', respuestaCrearProfesor);
+               // console.log('Nuevo Profesor: ', respuestaCrearProfesor);
                 const boolCasado = (/S/i).test(respuestaCrearProfesor.casado);
                 const boolDoctorado = (/S/i).test(respuestaCrearProfesor.doctorado);
                 const respuestaCrearProfesorTypado = {
@@ -497,9 +508,9 @@ const path = './registro.txt';
                     doctorado: boolDoctorado
                 }
 
-                console.log('JAJAJAJ',colegio.profesores)
+
                 colegio.profesores.push(respuestaCrearProfesorTypado);
-                console.log('JAJAJAJ',colegio.profesores)
+
 
 
                 //      colegio.profesores = respuestaCrearProfesorTypado;
@@ -525,6 +536,95 @@ const path = './registro.txt';
         }
     }
 
+    async function eliminarProfesor(){
+        try {
+            const todosColegios = await promesaLeerArchivo(path);
+            //console.log('colegios',todosColegios);
+            let arrayColegios = [];
+            if (todosColegios.length === 0) {
+                console.log('No hay colegios registrados');
+            } else {
+                if (todosColegios !== '') {
+                    arrayColegios = todosColegios.split('\n').map(
+                        valorActual => {
+                            return JSON.parse(valorActual);
+                        });
+                    //console.log('arrayColegios',arrayColegios);
+
+                    const respuestaSelecEliminarProfesor = await promesaSeleccionarColegioParaCrearProfesor(arrayColegios.map(
+                        valorActual => {
+                            return valorActual.nombreC;
+                        }
+                    ));
+                    // console.log('respuestaSelecCrearProfesor',respuestaSelecEliminarProfesor)
+                    const colegios = arrayColegios.splice(arrayColegios.findIndex(
+                        valorActual => {
+                            //console.log('valorActual',valorActual)
+                            if (valorActual.nombreC === respuestaSelecEliminarProfesor.crearProfesorEnColegio) {
+                                return valorActual;
+                            }
+                        }
+                    ), 1);
+                    await promesaEscribirColegio(actualizarRegistro(arrayColegios));
+                    const colegio = colegios[0];
+                    //console.log('profesores',JSON.stringify(colegio))
+//                    console.log('profesores',JSON.stringify(colegio.profesores));
+                    const arrayProfesores =  JSON.stringify(colegio.profesores);
+                    console.log('colegio', colegio);
+                    console.log('arrayProfesores', arrayProfesores);
+
+                    const menuEliminarProfesores= await inquirer
+                        .prompt([
+                            {
+                                type: 'input',
+                                name: 'seleccionProfesorEliminar',
+                                message: 'Ingrese el profesor que desea eliminar',
+                            }
+                        ]);
+                    const profesorEliminar = await menuEliminarProfesores;
+ //                   console.log('profesorEliminar >>>> ',profesorEliminar.seleccionProfesorEliminar);
+
+                    const eliminarProfesorDelArray = (indice, arreglo) => {
+                        arreglo.splice(indice, 1);
+                    }
+
+                    const arrayArrayProfesores = JSON.parse(arrayProfesores);
+                    //console.log('tipo arrayprofesores', typeof(arrayArrayProfesores) )
+                    console.log('ELIMINAR', profesorEliminar )
+                    //const newArrayProfesores = eliminarProfesorDelArray(profesorEliminar , arrayArrayProfesores);
+                    eliminarProfesorDelArray(profesorEliminar , arrayArrayProfesores);
+                    console.info( 'arrayProfesores',arrayArrayProfesores );
+// ["thumb-1", "thumb-2", "thumb-3", "thumb-4"]
+
+//                    console.info('newArrayProfesores' ,newArrayProfesores );
+// ["thumb-1", "thumb-3", "thumb-4"]
+                    console.log('colegio',JSON.stringify(colegio))
+                    const colegioProfesorEliminado = {
+                        nombreC: colegio.nombreC,
+                        direccion: colegio.direccion,
+                        aforo: colegio.aforo,
+                        boolBachilleratoUnificado: colegio.boolBachilleratoUnificado,
+                        licencia: colegio.licencia,
+                        profesores: arrayArrayProfesores
+                    }
+
+                    console.log('colegioProfesorEliminado >>>> ',colegioProfesorEliminado)
+
+                    const respuestaLeerArchivo = await promesaLeerArchivo(path);
+                    if (respuestaLeerArchivo !== '') {
+                        await promesaEscribirColegio(respuestaLeerArchivo + '\n' + JSON.stringify(colegioProfesorEliminado));
+                    } else {
+                        await promesaEscribirColegio(JSON.stringify(colegioProfesorEliminado));
+                    }
+                }
+            }
+            menu();
+
+        } catch (e) {
+            console.error(e);
+        }
+
+    }
 
 
     async function elegirColegioDondeCrearProfesor() {

@@ -50,19 +50,17 @@ const path = './registro.txt';
             //console.log(menu2colegios);
             switch (menu2colegios.seleccion2) {
                 case '1) Crear colegio':
-                    crearColegio();
+                    await crearColegio();
                     console.log('Creando colegio');
                     break;
                 case '2) Consultar colegios':
-                    menuConsultarColegios();
-
+                    await menuConsultarColegios();
                     break;
                 case '3) Actualizar colegio':
-                    console.log('Actualizando colegio');
-                    actualizarColegio()
+                    await actualizarColegio()
                     break;
                 case '4) Eliminar colegio':
-                    borrarColegio();
+                    await borrarColegio();
                     break;
                 case '5) Atras':
                     menu();
@@ -97,13 +95,10 @@ const path = './registro.txt';
                     await mostrarProfesor();
                     break;
                 case '3) Actualizar profesor':
-                    //actualizarProfesor();
-                    console.log('Actualizar profesor');
+                    await actualizarProfesor();
                     break;
                 case '4) Eliminar profesor':
-                    //eliminarProfesor();
-                    console.log('Eliminar profesor');
-                    eliminarProfesor();
+                    await eliminarProfesor();
                     break;
                 case '5) Atras':
                     menu();
@@ -323,10 +318,11 @@ const path = './registro.txt';
                         return JSON.parse(valorActual);
                     }
                 );
-                //console.log('arrayColegios',arrayColegios);
+                console.log('arrayColegios',arrayColegios);
             }
             if (arrayColegios.length === 0) {
-                return 'No hay colegios registrados';
+                return console.log('No hay colegios registrados');
+
             } else {
                 const respuestaSelecBorrar = await promesaSeleccionarColegio(arrayColegios.map(
                     valorActual => {
@@ -341,8 +337,8 @@ const path = './registro.txt';
                 await promesaEscribirColegio(actualizarRegistro(arrayColegios));
             }
             await crearColegio();
-            console.log('Colegio actualizado');
-            menuColegios();
+
+
         }catch (e) {
             console.error(e);
         }
@@ -421,16 +417,6 @@ const path = './registro.txt';
             });
     }
 
-    const promesaSeleccionarProfesorEliminar = (profesores) => {
-        return inquirer
-            .prompt({
-                type: 'list',
-                name: 'eliminarProfesor',
-                message: 'Seleccione el profesor al que desea eliminar:',
-                choices: profesores,
-            });
-    }
-
     async function crearProfesor() {
         try {
 
@@ -504,13 +490,7 @@ const path = './registro.txt';
                     doctorado: boolDoctorado
                 }
 
-
                 colegio.profesores.push(respuestaCrearProfesorTypado);
-
-
-
-                //      colegio.profesores = respuestaCrearProfesorTypado;
-//                console.log('colegioProfesores', colegio)
 
                 const respuestaLeerArchivo = await promesaLeerArchivo(path);
                 if (respuestaLeerArchivo !== '') {
@@ -518,14 +498,9 @@ const path = './registro.txt';
                 } else {
                     await promesaEscribirColegio(JSON.stringify(colegio));
                 }
-
-                //console.log('Colegio registrado');
-                //menuColegios();
-
-
             }
             }
-            menu();
+            await menu();
 
         } catch (e) {
             console.error(e);
@@ -567,26 +542,27 @@ const path = './registro.txt';
 //                    console.log('profesores',JSON.stringify(colegio.profesores));
                     const arrayProfesores =  JSON.stringify(colegio.profesores);
                     console.log('colegio', colegio);
-                    console.log('arrayProfesores', arrayProfesores);
+                   // console.log('Copie el profesor de aqui: ', arrayProfesores);
 
                     const menuEliminarProfesores= await inquirer
                         .prompt([
                             {
                                 type: 'input',
                                 name: 'seleccionProfesorEliminar',
-                                message: 'Ingrese el profesor que desea eliminar',
+                                message: 'Ingrese el indice del profesor que desea eliminar',
                             }
                         ]);
                     const profesorEliminar = await menuEliminarProfesores;
-                    //console.log('profesorEliminar >>>> ',profesorEliminar.seleccionProfesorEliminar);
+                  //  console.log('profesorEliminar >>>> ',profesorEliminar.seleccionProfesorEliminar);
 
                     const eliminarProfesorDelArray = (indice, arreglo) => {
-                        arreglo.splice(indice, 1);
+                        return arreglo.splice(indice, 1);
+                       // return arreglo.filter( e => e !== indice );
                     }
 
                     const arrayArrayProfesores = JSON.parse(arrayProfesores);
                     //console.log('ELIMINAR', profesorEliminar )
-                    eliminarProfesorDelArray(profesorEliminar , arrayArrayProfesores);
+                    eliminarProfesorDelArray(profesorEliminar.seleccionProfesorEliminar , arrayArrayProfesores);
                     //console.log( 'arrayProfesores',arrayArrayProfesores );
                     //console.log('colegio',JSON.stringify(colegio))
                     const colegioProfesorEliminado = {
@@ -606,7 +582,7 @@ const path = './registro.txt';
                     }
                 }
             }
-            menu();
+            await menu();
 
         } catch (e) {
             console.error(e);
@@ -615,6 +591,42 @@ const path = './registro.txt';
 
     async function mostrarProfesor(){
         try {
+            const todosColegios = await promesaLeerArchivo(path);
+            let arrayColegios = [];
+            if (todosColegios.length === 0) {
+                console.log('No hay colegios registrados');
+            } else {
+                if (todosColegios !== '') {
+                    arrayColegios = todosColegios.split('\n').map(
+                        valorActual => {
+                            return JSON.parse(valorActual);
+                        });
+                    const respuestaSelecEliminarProfesor = await promesaSeleccionarColegioParaCrearProfesor(arrayColegios.map(
+                        valorActual => {
+                            return valorActual.nombreC;
+                        }
+                    ));
+                    const colegios = arrayColegios.splice(arrayColegios.findIndex(
+                        valorActual => {
+                            if (valorActual.nombreC === respuestaSelecEliminarProfesor.crearProfesorEnColegio) {
+                                return valorActual;
+                            }
+                        }
+                    ), 1);
+                    const colegio = colegios[0];
+                    const arrayProfesores =  JSON.stringify(colegio.profesores);
+                    //console.log('colegio', colegio);
+                    console.log('Profesores ', JSON.parse(arrayProfesores));
+                }
+            }
+            await menu();
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async function actualizarProfesor(){
+        try{
             const todosColegios = await promesaLeerArchivo(path);
             //console.log('colegios',todosColegios);
             let arrayColegios = [];
@@ -642,21 +654,117 @@ const path = './registro.txt';
                             }
                         }
                     ), 1);
-                    //await promesaEscribirColegio(actualizarRegistro(arrayColegios));
+                    await promesaEscribirColegio(actualizarRegistro(arrayColegios));
                     const colegio = colegios[0];
                     //console.log('profesores',JSON.stringify(colegio))
 //                    console.log('profesores',JSON.stringify(colegio.profesores));
                     const arrayProfesores =  JSON.stringify(colegio.profesores);
-                    //console.log('colegio', colegio);
-                    console.log('Profesores ', JSON.parse(arrayProfesores));
+                    console.log('colegio', colegio);
+                    //console.log('arrayProfesores', arrayProfesores);
+
+                    const menuEliminarProfesores= await inquirer
+                        .prompt([
+                            {
+                                type: 'input',
+                                name: 'seleccionProfesorEliminar',
+                                message: 'Ingrese el indice del profesor que desea actualizar: ',
+                            }
+                        ]);
+                    const profesorEliminar = await menuEliminarProfesores;
+                    //console.log('profesorEliminar >>>> ',profesorEliminar.seleccionProfesorEliminar);
+
+                    const eliminarProfesorDelArray = (indice, arreglo) => {
+                        arreglo.splice(indice, 1);
+                    }
+
+                    const arrayArrayProfesores = JSON.parse(arrayProfesores);
+                    //console.log('ELIMINAR', profesorEliminar )
+                    eliminarProfesorDelArray(profesorEliminar.seleccionProfesorEliminar , arrayArrayProfesores);
+                    //console.log( 'arrayProfesores',arrayArrayProfesores );
+                    //console.log('colegio',JSON.stringify(colegio))
+
+                    //console.log('colegioProfesorEliminado >>>> ',colegioProfesorEliminado)
+                    const respuestaModificarProfesor = await inquirer
+                        .prompt([
+                            {
+                                type: 'input',
+                                name: 'nombreP',
+                                message: 'Ingresa el nombre del profesor:'
+                            },
+                            {
+                                type: 'input',
+                                name: 'especialidad',
+                                message: 'Ingresa la especialidad:'
+                            },
+                            {
+                                type: 'input',
+                                name: 'edad',
+                                message: 'Ingresa la edad:'
+                            },
+                            {
+                                type: 'input',
+                                name: 'casado',
+                                message: 'Es casado?(S/N):'
+                            },
+                            {
+                                type: 'input',
+                                name: 'doctorado',
+                                message: 'Tiene doctorado?(S/N):'
+                            }
+
+                        ]);
+                    // console.log('Nuevo Profesor: ', respuestaCrearProfesor);
+                    const boolCasado = (/S/i).test(respuestaModificarProfesor.casado);
+                    const boolDoctorado = (/S/i).test(respuestaModificarProfesor.doctorado);
+                    const respuestaModificarProfesorTypado = {
+                        nombreP: respuestaModificarProfesor.nombreP,
+                        especialidad: respuestaModificarProfesor.especialidad,
+                        edad: parseInt(respuestaModificarProfesor.edad),
+                        casado: boolCasado,
+                        doctorado: boolDoctorado
+                    }
+
+                    const colegioProfesorEliminado = {
+                        nombreC: colegio.nombreC,
+                        direccion: colegio.direccion,
+                        aforo: colegio.aforo,
+                        boolBachilleratoUnificado: colegio.boolBachilleratoUnificado,
+                        licencia: colegio.licencia,
+                        profesores: arrayArrayProfesores
+                    }
+                    colegioProfesorEliminado.profesores.push(respuestaModificarProfesorTypado);
+                    console.log('modificado', JSON.stringify(colegioProfesorEliminado))
+
+                    const respuestaLeerArchivo = await promesaLeerArchivo(path);
+                    if (respuestaLeerArchivo !== '') {
+                        await promesaEscribirColegio(respuestaLeerArchivo + '\n' + JSON.stringify(colegioProfesorEliminado));
+                    } else {
+                        await promesaEscribirColegio(JSON.stringify(colegioProfesorEliminado));
+                    }
+
+/*
+                    const respuestaLeerArchivo2 = await promesaLeerArchivo(path);
+                    if (respuestaLeerArchivo2 !== '') {
+                        await promesaEscribirColegio(respuestaLeerArchivo2 + '\n' + JSON.stringify(colegio));
+                    } else {
+                        await promesaEscribirColegio(JSON.stringify(colegio));
+                    }
+*/
+
                 }
             }
-            menu();
+            await menu();
 
-        } catch (e) {
+
+        }
+        catch (e) {
             console.error(e);
         }
     }
+
+
+
+
 
 
     async function elegirColegioDondeCrearProfesor() {
@@ -688,8 +796,15 @@ const path = './registro.txt';
             console.error(e);
         }
     }
-
-
+    const promesaSeleccionarProfesorEliminar = (profesores) => {
+        return inquirer
+            .prompt({
+                type: 'list',
+                name: 'eliminarProfesor',
+                message: 'Seleccione el profesor al que desea eliminar:',
+                choices: profesores,
+            });
+    }
 
 }
 

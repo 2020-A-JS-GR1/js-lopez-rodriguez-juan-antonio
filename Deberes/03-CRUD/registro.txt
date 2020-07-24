@@ -1,2 +1,2 @@
-{"nombreC":"Ameria","direccion":"America","aforo":400,"boolBachilleratoUnificado":true,"licencia":true,"profesores":[]}
-{"nombreC":"Benalcazar","direccion":"Naciones Unidas","aforo":700,"boolBachilleratoUnificado":true,"licencia":true,"profesores":[{"nombreP":"Armando Lopez","especialidad":"Ciencias Administrativas","edad":57,"casado":true,"doctorado":true},{"nombreP":"Marta Isabel","especialidad":"Biologia","edad":51,"casado":true,"doctorado":true}]}
+{"nombreC":"America","direccion":"La prensa","aforo":600,"boolBachilleratoUnificado":true,"licencia":true,"profesores":[]}
+{"nombreC":"Benalcazar","direccion":"la prensa","aforo":600,"boolBachilleratoUnificado":true,"licencia":true,"profesores":[]}

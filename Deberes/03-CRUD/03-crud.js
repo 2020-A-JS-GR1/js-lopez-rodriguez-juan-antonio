@@ -195,7 +195,7 @@ const path = './registro.txt';
                 await promesaEscribirColegio(JSON.stringify(respuestaCrearColegioTypado));
             }
             //console.log('Colegio registrado');
-            menuColegios();
+            await menuColegios();
         } catch (e) {
             console.error(e);
         }
@@ -741,15 +741,6 @@ const path = './registro.txt';
                     } else {
                         await promesaEscribirColegio(JSON.stringify(colegioProfesorEliminado));
                     }
-
-/*
-                    const respuestaLeerArchivo2 = await promesaLeerArchivo(path);
-                    if (respuestaLeerArchivo2 !== '') {
-                        await promesaEscribirColegio(respuestaLeerArchivo2 + '\n' + JSON.stringify(colegio));
-                    } else {
-                        await promesaEscribirColegio(JSON.stringify(colegio));
-                    }
-*/
 
                 }
             }

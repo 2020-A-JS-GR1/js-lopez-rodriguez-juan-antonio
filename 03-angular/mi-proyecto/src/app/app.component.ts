@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UsuarioService} from "./servicios/http/usuario.service";
 
 @Component({
@@ -6,8 +6,9 @@ import {UsuarioService} from "./servicios/http/usuario.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'mi-proyecto';
+  habilitado = true;
 
   arregloPeliculas = [
     {
@@ -29,26 +30,64 @@ export class AppComponent {
       nombrePelicula: 'Mix Jocker'
     }
   ]
+
+  arregloUsuarios = [];
+
   arregloNumeros = [1,2,3]
+
+  arregloObservables = []
 
   // Inyectar Dependencias
   constructor(
     private readonly _usuarioService: UsuarioService
   ) {
+
+  }
+
+  ngOnInit(): void{
+    this.mensajeConsola(true);
   }
 
   mensajeConsola(objeto: boolean) {
     console.log('Llego el evento', objeto);
     const observableTraerTodos = this._usuarioService.traerTodos();
-    observableTraerTodos
+    const suscripcion = observableTraerTodos
       .subscribe(
         (data)=>{ // THEN TRY
+          this.arregloUsuarios = data as any[];
           console.log(data);
         },
         (error)=>{ // CATCH
           console.log(error);
         }
       );
+    this.arregloObservables.push(suscripcion);
+    // this.arregloObservables.forEach(
+    //   (suscripcion)=>{
+    //     suscripcion.unsubscribe();
+    //   }
+    // )
+    //suscripcion.unsubscribe()
+  }
+
+  crearUsuario(){
+    const usuarioNuevo = {
+      cedula: "1236547845",
+      nombre: "Naruto",
+      apellido: "Uzumaki"
+    };
+    const obsCrearUsuario = this._usuarioService.crear(usuarioNuevo);
+    obsCrearUsuario
+      .subscribe(
+        (datos:Object) => {
+          console.log('Nuevo usuario', datos)
+          this.mensajeConsola(true);
+        },
+        (error) => {
+      console.error('Error', error);
+        }
+      )
+
   }
 
 

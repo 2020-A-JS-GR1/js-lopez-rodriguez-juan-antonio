@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-formulario-usuario',
@@ -7,14 +7,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormularioUsuarioComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  nombreInput:string;
+
+  @Input()
+  cedulaInput:string;
+
+  @Input()
+  estadoCivilInput:string;
+
+  @Output()
+  informacionValidada: EventEmitter<any> = new EventEmitter<any>()
 
   nombreModelo: string;
   cedulaModelo: string;
-  estadoCivilModelo: string
+  estadoCivilModelo: string;
+
+
+  constructor() { }
 
   ngOnInit(): void {
-
+    if(this.nombreInput && this.cedulaInput && this.estadoCivilInput){
+      this.nombreModelo = this.nombreInput;
+      this.cedulaModelo = this.cedulaInput;
+      this.estadoCivilModelo = this.estadoCivilInput;
+    }
   }
 
   crearUsuario(formulario){
@@ -22,6 +39,12 @@ export class FormularioUsuarioComponent implements OnInit {
     const esNumero = !Number.isNaN(Number(cedula))
     if(esNumero){
       // llamar al servicio http y enviar un post al servidor con los datos del formulario
+      console.log('Listo :)')
+      this.informacionValidada.emit({
+        nombre: this.nombreModelo,
+        cedula: this.cedulaModelo,
+        estadoCivil: this.estadoCivilModelo,
+      })
     }else{
       console.error('NO ES UN NUMERO')
     }

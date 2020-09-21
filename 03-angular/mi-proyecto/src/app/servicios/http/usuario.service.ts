@@ -10,8 +10,8 @@ export class UsuarioService {
     private readonly _httpClient:HttpClient
   ) {
   }
-  traerTodos(){
-    return this._httpClient.get(this.url + '/Usuario')
+  traerTodos(consulta?: string){
+    return this._httpClient.get(this.url + '/Usuario?' + consulta)
   }
 
   obtenerUnoPorId(idUsuario:number){

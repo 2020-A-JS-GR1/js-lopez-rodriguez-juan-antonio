@@ -41,7 +41,7 @@ export class AppComponent implements OnInit{
   // Inyectar Dependencias
   constructor(
     private readonly _usuarioService: UsuarioService,
-    private readonly _authService: AuthService
+    public readonly _authService: AuthService
   ) {
 
   }

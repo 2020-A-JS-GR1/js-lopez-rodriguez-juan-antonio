@@ -17,7 +17,7 @@ export class RutaColegioComponent implements OnInit {
   ) {
   }
 
-  irAEditarEstablecimiento(id: number) {
+  irAEditarColegio(id: number) {
     const ruta = ['/editarColegio', id]
     // /editarEstablecimiento/1
     this._router.navigate(ruta);

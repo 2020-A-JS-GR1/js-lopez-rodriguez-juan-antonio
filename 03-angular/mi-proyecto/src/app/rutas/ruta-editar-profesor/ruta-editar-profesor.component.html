@@ -1,1 +1,15 @@
-<p>ruta-editar-profesor works!</p>
+<h1>Edicion del profesor</h1>
+
+<div *ngIf="mostrarFormulario">
+  <app-formulario-profesor
+    [cedulaProfesorInput]="profesor.cedula_profesor"
+    [nombreProfesorInput]="profesor.nombre_profesor"
+    [apellidoProfesorInput]="profesor.apellido_profesor"
+    [birthdateProfesorInput]="profesor.birthdate_profesor"
+    [estadoCivilProfesorInput]="profesor.estado_civil_profesor"
+    [doctoradoProfesorInput]="profesor.doctorado_profesor"
+    [colegioInput]="profesor.colegio.id"
+    (informacionProfesorValidada)="editarProfesor($event)"
+  >
+  </app-formulario-profesor>
+</div>

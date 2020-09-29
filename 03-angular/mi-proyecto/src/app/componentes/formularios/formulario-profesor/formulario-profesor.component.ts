@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ColegioService} from "../../../servicios/http/colegio.service";
 import {Router} from "@angular/router";
 import {ProfesorService} from "../../../servicios/http/profesor.service";
 
@@ -11,61 +10,42 @@ import {ProfesorService} from "../../../servicios/http/profesor.service";
 export class FormularioProfesorComponent implements OnInit {
 
   @Input()
-  cedulaProfesorInput:number;
+  cedulaProfesorInput: number;
 
   @Input()
-  nombreProfesorInput:string;
+  nombreProfesorInput: string;
 
   @Input()
-  apellidoProfesorInput:number;
+  apellidoProfesorInput: number;
 
   @Input()
-  birthdateProfesorInput:string;
+  birthdateProfesorInput: string;
 
   @Input()
-  estadoCivilProfesorInput:string;
+  estadoCivilProfesorInput: string;
 
   @Input()
-  doctoradoProfesorInput:string;
+  doctoradoProfesorInput: string;
 
   @Input()
-  colegioInput:number;
+  colegioInput: number;
 
   @Output()
   informacionProfesorValidada: EventEmitter<any> = new EventEmitter<any>()
 
   constructor(
-    private readonly _profesorService:ProfesorService,
-    private readonly _router:Router
-  ) { }
-
-  cedulaProfesor:number;
-  nombreProfesor:string;
-  apellidoProfesor:number;
-  birthdateProfesor:string;
-  estadoCivilProfesor:string;
-  doctoradoProfesor:string;
-  colegio:number;
-
-  ngOnInit(): void {
-    if(this.cedulaProfesorInput &&
-      this.nombreProfesorInput &&
-      this.apellidoProfesorInput &&
-      this.birthdateProfesorInput &&
-      this.estadoCivilProfesorInput &&
-      this.doctoradoProfesorInput &&
-      this.colegioInput
-    ){
-      this.cedulaProfesor=this.cedulaProfesorInput;
-      this.nombreProfesor=this.nombreProfesorInput;
-      this.apellidoProfesor=this.apellidoProfesorInput;
-      this.birthdateProfesor=this.birthdateProfesorInput;
-      this.estadoCivilProfesor=this.estadoCivilProfesorInput;
-      this.doctoradoProfesor=this.doctoradoProfesorInput;
-      this.colegio=this.colegioInput;
-    }
-
+    private readonly _profesorService: ProfesorService,
+    private readonly _router: Router
+  ) {
   }
+
+  cedulaProfesor: number;
+  nombreProfesor: string;
+  apellidoProfesor: number;
+  birthdateProfesor: string;
+  estadoCivilProfesor: string;
+  doctoradoProfesor: string;
+  colegio: number;
 
   crearProfesor(formulario){
     console.log(formulario);
@@ -79,7 +59,7 @@ export class FormularioProfesorComponent implements OnInit {
         birthdate_profesor: this.birthdateProfesor,
         estado_civil_profesor: this.estadoCivilProfesor,
         doctorado_profesor: this.doctoradoProfesor,
-        colegio:this.colegio
+        colegio:this.colegio,
       })
     }else{
       console.error('NO ES UN NUMERO')
@@ -87,10 +67,28 @@ export class FormularioProfesorComponent implements OnInit {
     }
   }
 
-  ayudaCrearProfesor(){
-    alert('Todos los campos son necesarios para esta operacion')
+  ngOnInit(): void {
+    if (this.cedulaProfesorInput &&
+      this.nombreProfesorInput &&
+      this.apellidoProfesorInput &&
+      this.birthdateProfesorInput &&
+      this.estadoCivilProfesorInput &&
+      this.doctoradoProfesorInput &&
+      this.colegioInput
+    ) {
+      this.cedulaProfesor = this.cedulaProfesorInput;
+      this.nombreProfesor = this.nombreProfesorInput;
+      this.apellidoProfesor = this.apellidoProfesorInput;
+      this.birthdateProfesor = this.birthdateProfesorInput;
+      this.estadoCivilProfesor = this.estadoCivilProfesorInput;
+      this.doctoradoProfesor = this.doctoradoProfesorInput;
+      this.colegio = this.colegioInput;
+    }
+
   }
 
-
+  ayudaCrearProfesor() {
+    alert('Todos los campos son necesarios para esta operacion')
+  }
 
 }

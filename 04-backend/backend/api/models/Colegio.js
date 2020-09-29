@@ -37,6 +37,13 @@ module.exports = {
       required: true,
     },
 
+  //  RELACIONES
+  //  Colegio -> Profesores
+     profesores:{   //Uno a muchos
+       collection:'Profesor',
+       via:'colegio'
+    }
+
   },
 
 };

@@ -46,7 +46,12 @@ module.exports = {
       required: true,
     },
 
-
+    //  RELACIONES
+    //  Profesor <- Colegio  Muchos a Uno
+    colegio:{
+      model:'Colegio',
+      required: true
+    }
 
   },
 

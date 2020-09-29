@@ -1,0 +1,144 @@
+<p>Ingrese los siguientes datos:</p>
+
+<form #formularioProfesor="ngForm"
+      (ngSubmit)="crearProfesor(formularioProfesor)">
+  <div>
+    <!--    <label for="cedula_profesor">Cedula: </label>-->
+    <input id="cedula_profesor"
+           type="text" name="cedula_profesor"
+           [(ngModel)]="cedulaProfesor"
+           required
+           #cedulaProfesorCampo="ngModel"
+           minlength="3"
+           class="fadeIn second"
+           placeholder="Cedula"
+    >
+    <div *ngIf="cedulaProfesorCampo.touched && cedulaProfesorCampo.errors">
+      <p *ngIf="cedulaProfesorCampo.errors.required">
+        Error: Campo requerido
+      </p>
+      <p *ngIf="cedulaProfesorCampo.errors.minlength">
+        Error: Longitud minima 3
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <!--    <label for="nombre_profesor">Nombre: </label>-->
+    <input id="nombre_profesor"
+           type="text" name="nombre_profesor"
+           [(ngModel)]="nombreProfesor"
+           required
+           #nombreProfesorCampo="ngModel"
+           minlength="3"
+           class="fadeIn second"
+           placeholder="Nombre"
+    >
+    <div *ngIf="nombreProfesorCampo.touched && nombreProfesorCampo.errors">
+      <p *ngIf="nombreProfesorCampo.errors.required">
+        Error: Campo requerido
+      </p>
+      <p *ngIf="nombreProfesorCampo.errors.minlength">
+        Error: Longitud minima 3
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <!--    <label for="apellido_profesor">Apellido: </label>-->
+    <input id="apellido_profesor"
+           type="text" name="apellido_profesor"
+           [(ngModel)]="apellidoProfesor"
+           required
+           #apellidoProfesorCampo="ngModel"
+           minlength="2"
+           class="fadeIn third"
+           placeholder="Apellido"
+    >
+    <div *ngIf="apellidoProfesorCampo.touched && apellidoProfesorCampo.errors">
+      <p *ngIf="apellidoProfesorCampo.errors.required">
+        Error: Campo requerido
+      </p>
+      <p *ngIf="apellidoProfesorCampo.errors.minlength">
+        Error: Longitud minima 2
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <!--    <label for="birthdate_profesor">Fecha de nacimiento: </label>-->
+    <input id="birthdate_profesor"
+           type="text" name="birthdate_profesor"
+           [(ngModel)]="birthdateProfesor"
+           required
+           #birthdateProfesorCampo="ngModel"
+           minlength="10"
+           mixlength="10"
+           class="fadeIn third"
+           placeholder="Fecha de nacimiento"
+    >
+    <div *ngIf="birthdateProfesorCampo.touched && birthdateProfesorCampo.errors">
+      <p *ngIf="birthdateProfesorCampo.errors.required">
+        Error: Campo requerido
+      </p>
+      <p *ngIf="birthdateProfesorCampo.errors.minlength">
+        Error: Longitud minima 2
+      </p>
+    </div>
+  </div>
+
+  <label for="estado_civil_profesor" class="fadeIn third">Estado Civil: </label>
+  <br>
+  <select name="estado_civil_profesor" id="estado_civil_profesor" [(ngModel)]="estadoCivilProfesor" class="fadeIn third"
+          required>
+    <option value="casado">Casado</option>
+    <option value="soltero">Soltero</option>
+    <option value="divorciado">Divorciado</option>
+    <option value="union libre">Union Libre</option>
+  </select>
+
+  <br>
+  <label for="doctorado_profesor" class="fadeIn third">Doctorado: </label>
+  <br>
+  <select name="doctorado_profesor" id="doctorado_profesor" [(ngModel)]="doctoradoProfesor" class="fadeIn third"
+          required>
+    <option value="si">Si</option>
+    <option value="no">No</option>
+  </select>
+
+  <div>
+    <!--    <label for="birthdate_profesor">Fecha de nacimiento: </label>-->
+    <input id="colegio"
+           type="number" name="colegio"
+           [(ngModel)]="colegio"
+           required
+           #colegioCampo="ngModel"
+           min="1"
+           class="fadeIn third"
+           placeholder="ID del Colegio"
+    >
+    <div *ngIf="colegioCampo.touched && colegioCampo.errors">
+      <p *ngIf="colegioCampo.errors.required">
+        Error: Campo requerido
+      </p>
+      <p *ngIf="colegioCampo.errors.minlength">
+        Error: Longitud minima 2
+      </p>
+    </div>
+  </div>
+
+
+  <!--BOTONES-->
+  <div>
+    <button type="button" (click)="ayudaCrearProfesor()">
+      Ayuda
+    </button>
+    <button type="reset">
+      Reset
+    </button>
+    <button type="submit" [disabled]="!formularioProfesor.form.valid">
+      Submit
+    </button>
+  </div>
+
+</form>

@@ -1,73 +1,152 @@
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" [routerLink]="['inicioExamen']">Inicio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
 
-<!--<h1>Lista de peliculas</h1>-->
-<!--&lt;!&ndash; Directivas - NGFOR &ndash;&gt;-->
-<!--<p *ngFor="let numero of arregloNumeros">-->
-<!--{{numero}}-->
-<!--</p>-->
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a [routerLink]="['colegio']" class="nav-link" href="#">
+            Colegios <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item active" >
+          <a [routerLink]="['profesor']" class="nav-link" href="#">
+            Profesores <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
 
-<!--&lt;!&ndash; Directivas - NGIF &ndash;&gt;-->
-<!--<p *ngIf="false">-->
-<!--  OCULTO-->
-<!--</p>-->
-
-
-<!--<div *ngFor="let pelicula of arregloPeliculas">-->
-<!--  <app-carta-pelicula-->
-<!--    [urlImagen]="pelicula.url"-->
-<!--    [descripcion]="pelicula.descripcion"-->
-<!--    [nombreBoton]="pelicula.nombrePelicula"-->
-<!--    (eventoDioClicEnBoton)="mensajeConsola($event)"-->
-<!--    (eventoDioClicEnImagen)="mensajeConsola($event)"-->
-<!--  >-->
-<!--  </app-carta-pelicula>-->
-
-<!--</div>-->
-
-<!--<button (click)="crearUsuario()">-->
-<!--  Crear Usuario-->
-<!--</button>-->
-
-<!--<button (click)="habilitado = !habilitado">-->
-<!--{{habilitado ? 'Habilitado' : 'Deshabilitado'}}-->
-<!--</button>-->
-
-<!--<app-carta-pelicula *ngIf="habilitado">-->
-
-<!--</app-carta-pelicula>-->
-
-<!--<div *ngFor="let usuario of arregloUsuarios">-->
-<!--{{usuario.nombre}}-->
-<!--</div>-->
-
-
-<ul>
-  <li>
-    <a [routerLink]="['inicio']" >
-      Ir Inicio
-    </a>
-  </li>
-  <li>
-    <a [routerLink]="['login']" >
-      Ir Login
-    </a>
-  </li>
-  <li>
-    <a [routerLink]="['usuario']" >
-      Usuarios
-    </a>
-  </li>
-</ul>
+    </div>
+  </nav>
+</div>
 
 <router-outlet>
 
 </router-outlet>
 
-<!--<br>-->
-<!--<app-carta-pelicula-->
-<!--  urlImagen="https://los40es00.epimg.net/los40/imagenes/2020/08/04/cinetv/1596531662_429948_1596533048_noticia_normal.jpg"-->
-<!--  descripcion="Desripcion 2"-->
-<!--  nombreBoton="Like 2"-->
+
+
+<!--&lt;!&ndash;<h1>Lista de peliculas</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash; Directivas - NGFOR  &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<p *ngFor="let numero of arregloNumeros">&ndash;&gt;-->
+<!--&lt;!&ndash;  {{numero}}&ndash;&gt;-->
+<!--&lt;!&ndash;</p>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash; Directivas - NGIF  &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<p *ngIf="false">&ndash;&gt;-->
+<!--&lt;!&ndash;  OCULTO&ndash;&gt;-->
+<!--&lt;!&ndash;</p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div *ngFor="let pelicula of arregloPeliculas">&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <app-carta-pelicula&ndash;&gt;-->
+<!--&lt;!&ndash;    [urlImagen]="pelicula.url"&ndash;&gt;-->
+<!--&lt;!&ndash;    [descripcion]="pelicula.descripcion"&ndash;&gt;-->
+<!--&lt;!&ndash;    [nombreBoton]="pelicula.nombrePelicula"&ndash;&gt;-->
+<!--&lt;!&ndash;    (eventoDioClicEnBoton)="mensajeConsola($event)"&ndash;&gt;-->
+<!--&lt;!&ndash;    (eventoDioClicEnImagen)="mensajeConsola($event)"&ndash;&gt;-->
+<!--&lt;!&ndash;  >&ndash;&gt;-->
+<!--&lt;!&ndash;  </app-carta-pelicula>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<button (click)="crearUsuario()">&ndash;&gt;-->
+<!--&lt;!&ndash;  Crear Usuario&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<button (click)="habilitado = !habilitado">&ndash;&gt;-->
+<!--&lt;!&ndash;  {{habilitado ? 'Habilitado' : 'Deshabilitado'}}&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<app-carta-pelicula *ngIf="habilitado">&ndash;&gt;-->
+
+<!--&lt;!&ndash;</app-carta-pelicula>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;<div *ngFor="let usuario of arregloUsuarios">&ndash;&gt;-->
+<!--&lt;!&ndash;  {{usuario.nombre}}&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;MENU LOGIN INICIO CON LOS ESTILOS DE EJEMPLO&ndash;&gt;-->
+<!--<ul>-->
+<!--  <li>-->
+<!--    <a [routerLink]="['inicio']">-->
+<!--      Ir Inicio-->
+<!--    </a>-->
+<!--  </li>-->
+<!--  <li>-->
+<!--    <a [routerLink]="['login']">-->
+<!--      Ir Login-->
+<!--    </a>-->
+<!--  </li>-->
+<!--  <li *ngIf="_authService.estaAutenticado">-->
+<!--    <a [routerLink]="['usuario']">-->
+<!--      Usuarios-->
+<!--    </a>-->
+<!--  </li>-->
+<!--</ul>-->
+
+<!--<button mat-button-->
+<!--color="accent"-->
 <!--&gt;-->
-<!--</app-carta-pelicula>-->
+<!--  Boton Material-->
+<!--</button>-->
+
+<!--<button type="button"-->
+<!--        class="btn btn-outline-secondary mr-2"-->
+<!--        placement="top"-->
+<!--        ngbTooltip="Cuidado con verme feo"-->
+<!--&gt;-->
+<!--  Tooltip on top-->
+<!--</button>-->
+
+<!--<p placement="bottom" ngbTooltip="Otro mas">EJEMPLO</p>-->
+
+<!--<p-button-->
+<!--  label="Hola desde primeng"-->
+<!--  class="p-button-secondary"-->
+<!--&gt;-->
+<!--</p-button>-->
 
 
+<!--<router-outlet>-->
+
+<!--</router-outlet>-->
+
+<!--&lt;!&ndash;FIN DE MENU CON EJEMPLOS DE ESTILOS&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;<br>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<app-carta-pelicula&ndash;&gt;-->
+<!--&lt;!&ndash;  urlImagen="https://los40es00.epimg.net/los40/imagenes/2020/08/04/cinetv/1596531662_429948_1596533048_noticia_normal.jpg"&ndash;&gt;-->
+<!--&lt;!&ndash;  descripcion="Descripcion 2"&ndash;&gt;-->
+<!--&lt;!&ndash;  nombreBoton="Like 2"&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</app-carta-pelicula>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;<h1>Titulo 1</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;<h6>Titulo 6</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;<p>Parrafo</p>&ndash;&gt;-->
+<!--&lt;!&ndash;<ul>&ndash;&gt;-->
+<!--&lt;!&ndash;  <li>Papa</li>&ndash;&gt;-->
+<!--&lt;!&ndash;  <li>Cebolla</li>&ndash;&gt;-->
+<!--&lt;!&ndash;</ul>&ndash;&gt;-->
+<!--&lt;!&ndash;<ol>&ndash;&gt;-->
+<!--&lt;!&ndash;  <li>A</li>&ndash;&gt;-->
+<!--&lt;!&ndash;  <li>B</li>&ndash;&gt;-->
+<!--&lt;!&ndash;  <li>C</li>&ndash;&gt;-->
+<!--&lt;!&ndash;</ol>&ndash;&gt;-->
+<!--&lt;!&ndash;<img&ndash;&gt;-->
+<!--&lt;!&ndash;  src="https://www.40defiebre.com/wp-content/uploads/2015/10/imagenes.png"&ndash;&gt;-->
+<!--&lt;!&ndash;  alt=""&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash; anchor ancla &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<a href="https://www.google.com">&ndash;&gt;-->
+<!--&lt;!&ndash;  IR A GOOGLE&ndash;&gt;-->
+<!--&lt;!&ndash;</a>&ndash;&gt;-->
+<!--&lt;!&ndash;<button>Mi primer boton</button>&ndash;&gt;-->

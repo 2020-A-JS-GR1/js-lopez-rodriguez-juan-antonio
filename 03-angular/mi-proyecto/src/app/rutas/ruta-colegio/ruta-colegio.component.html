@@ -1,0 +1,41 @@
+<body>
+<div class=" mb-4 ml-2">
+  <h1>Colegios</h1>
+  <button [routerLink]="['/crearColegio']" class="btn btn-primary">Crear Colegio
+  </button>
+</div>
+
+
+<router-outlet></router-outlet>
+<div class="row">
+
+  <div *ngFor="let colegio of arregloColegios">
+    <div class="col-md-3 ">
+
+      <div class="card mb-4 ml-2" style="width: 16rem;">
+
+        <div class="card-body">
+          <a (click)="irAVerColegio(colegio.id)">
+          <h1 class="card-title mb-2 ">{{colegio.nombre_colegio}}</h1>
+          <h3 class="card-title mb-2">Id: {{colegio.id}}</h3>
+          <h3 class="card-title mb-2">Direccion: {{colegio.direccion_colegio}}</h3>
+          <h3 class="card-title mb-2">Aforo: {{colegio.aforo_colegio}}</h3>
+          <h3 class="card-title mb-2">Bachillerato Unificado: {{colegio.bachillerato_unificado_colegio}}</h3>
+          <h3 class="card-title mb-2">Licencia: {{colegio.licencia_colegio}}</h3>
+          </a>
+
+          <button (click)="irAEditarColegio(colegio.id)" class="btn btn-primary">
+            Editar
+          </button>
+          <button (click)="eliminarColegio(colegio.id)" class="btn btn-primary ml-1">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</body>

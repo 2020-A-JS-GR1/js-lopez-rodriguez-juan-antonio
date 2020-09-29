@@ -1,0 +1,14 @@
+<h1>Edicion del colegio</h1>
+
+
+<div *ngIf="mostrarFormulario">
+  <app-formulario-colegio
+    [nombreColegioInput]="colegio.nombre_colegio"
+    [direccionColegioInput]="colegio.direccion_colegio"
+    [aforoColegioInput]="colegio.aforo_colegio"
+    [bachilleratoUnificadoInput]="colegio.bachillerato_unificado_colegio"
+    [licenciaColegioInput]="colegio.licencia_colegio"
+    (informacionColegioValidada)="editarColegio($event)"
+  >
+  </app-formulario-colegio>
+</div>

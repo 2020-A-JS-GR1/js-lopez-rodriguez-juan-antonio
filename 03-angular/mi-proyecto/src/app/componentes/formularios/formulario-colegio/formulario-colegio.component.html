@@ -1,0 +1,97 @@
+<p>Ingrese los siguientes datos:</p>
+
+<form #formularioColegio="ngForm"
+      (ngSubmit)="crearColegio(formularioColegio)">
+  <div>
+    <!--    <label for="nombre_colegio">Nombre: </label>-->
+    <input id="nombre_colegio"
+           type="text" name="nombre_colegio"
+           [(ngModel)]="nombreColegio"
+           required
+           #nombreColegioCampo="ngModel"
+           minlength="3"
+           class="fadeIn second"
+           placeholder="Nombre"
+    >
+    <div *ngIf="nombreColegioCampo.touched && nombreColegioCampo.errors">
+      <p *ngIf="nombreColegioCampo.errors.required">
+        Error: Campo requerido
+      </p>
+      <p *ngIf="nombreColegioCampo.errors.minlength">
+        Error: Longitud minima 3
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <!--    <label for="direccion_colegio">Direccion: </label>-->
+    <input id="direccion_colegio"
+           type="text" name="direccion_colegio"
+           [(ngModel)]="direccionColegio"
+           required
+           #direccionColegioCampo="ngModel"
+           minlength="3"
+           class="fadeIn second"
+           placeholder="Direccion"
+    >
+    <div *ngIf="direccionColegioCampo.touched && direccionColegioCampo.errors">
+      <p *ngIf="direccionColegioCampo.errors.required">
+        Error: Campo requerido
+      </p>
+      <p *ngIf="direccionColegioCampo.errors.minlength">
+        Error: Longitud minima 3
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <!--    <label for="telefono_establecimiento">Telefono: </label>-->
+    <input id="aforo_colegio"
+           type="number" name="aforo_colegio"
+           [(ngModel)]="aforoColegio"
+           required
+           #aforoCampo="ngModel"
+           min="1"
+           class="fadeIn third"
+           placeholder="Aforo"
+    >
+    <div *ngIf="aforoCampo.touched && aforoCampo.errors">
+      <p *ngIf="aforoCampo.errors.required">
+        Error: Campo requerido
+      </p>
+      <p *ngIf="aforoCampo.errors.minlength">
+        Error: Longitud minima 2
+      </p>
+    </div>
+  </div>
+
+  <label for="bachillerato_unificado_colegio" class="fadeIn third" >Bachillerato unificado: </label>
+  <br>
+  <select name="bachillerato_unificado_colegio" id="bachillerato_unificado_colegio" [(ngModel)]="bachilleratoUnificado" class="fadeIn third" required>
+    <option value="si">Si</option>
+    <option value="no">No</option>
+  </select>
+  <br>
+  <label for="licencia_colegio" class="fadeIn third" >Licencia: </label>
+  <br>
+  <select name="licencia_colegio" id="licencia_colegio" [(ngModel)]="licenciaColegio" class="fadeIn third" required>
+    <option value="si">Si</option>
+    <option value="no">No</option>
+  </select>
+
+
+
+  <!--BOTONES-->
+  <div>
+    <button type="button" (click)="ayudaCrearColegio()">
+      Ayuda
+    </button>
+    <button type="reset">
+      Reset
+    </button>
+    <button type="submit" [disabled]="!formularioColegio.form.valid">
+      Submit
+    </button>
+  </div>
+
+</form>

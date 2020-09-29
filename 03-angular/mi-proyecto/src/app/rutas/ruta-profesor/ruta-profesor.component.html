@@ -1,0 +1,40 @@
+<body>
+<div class=" mb-4 ml-2">
+  <h1>Profesores</h1>
+  <button [routerLink]="['/crearProfesor']" class="btn btn-primary">Crear Profesor
+  </button>
+</div>
+
+
+<router-outlet></router-outlet>
+<div class="row">
+
+  <div *ngFor="let profesor of arregloProfesores">
+    <div class="col-md-3 ">
+
+      <div class="card mb-4 ml-2" style="width: 16rem;">
+
+        <div class="card-body">
+          <h1 class="card-title mb-2 ">{{profesor.nombre_profesor}} {{profesor.apellido_profesor}}</h1>
+          <h3 class="card-title mb-2">Id: {{profesor.id}}</h3>
+          <h3 class="card-title mb-2">Nacido el: {{profesor.birthdate_profesor}}</h3>
+          <h3 class="card-title mb-2">Estado Civil: {{profesor.estado_civil_profesor}}</h3>
+          <h3 class="card-title mb-2">Doctorado: {{profesor.doctorado_profesor}}</h3>
+          <h3 class="card-title mb-2">Colegio: {{profesor.colegio.nombre_colegio}}</h3>
+
+
+          <button (click)="irAEditarProfesor(profesor.id)" class="btn btn-primary">
+            Editar
+          </button>
+          <button (click)="eliminarColegio(profesor.id)" class="btn btn-primary ml-1">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</body>

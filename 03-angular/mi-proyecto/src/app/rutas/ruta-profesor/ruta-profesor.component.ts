@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ProfesorService} from "../../servicios/http/profesor.service";
 
 @Component({
   selector: 'app-ruta-profesor',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RutaProfesorComponent implements OnInit {
 
-  constructor() { }
+  arregloProfesores = [];
+
+  constructor(
+    private readonly _profesorService:ProfesorService
+  ) { }
 
   ngOnInit(): void {
+    const observableTraerTodosProfesores=this._profesorService.traerTodosProfesores();
+    observableTraerTodosProfesores.subscribe(
+      (profesores: any[])=>{
+        this.arregloProfesores = profesores;
+        console.log('Profesores', this.arregloProfesores)
+      },
+      (error) => {
+        console.error('Error', error);
+      }
+    )
   }
 
 }

@@ -23,6 +23,11 @@ export class RutaColegioComponent implements OnInit {
     this._router.navigate(ruta);
   }
 
+  irAVerColegio(id:number){
+    const ruta = ['/detalleColegio', id]
+    this._router.navigate(ruta) ;
+  }
+
   eliminarColegio(id: number) {
     const obsEliminar = this._colegioService.eliminarColegio(id);
     obsEliminar.subscribe(

@@ -15,13 +15,14 @@
       <div class="card mb-4 ml-2" style="width: 16rem;">
 
         <div class="card-body">
+          <a (click)="irAVerColegio(colegio.id)">
           <h1 class="card-title mb-2 ">{{colegio.nombre_colegio}}</h1>
           <h3 class="card-title mb-2">Id: {{colegio.id}}</h3>
           <h3 class="card-title mb-2">Direccion: {{colegio.direccion_colegio}}</h3>
           <h3 class="card-title mb-2">Aforo: {{colegio.aforo_colegio}}</h3>
           <h3 class="card-title mb-2">Bachillerato Unificado: {{colegio.bachillerato_unificado_colegio}}</h3>
           <h3 class="card-title mb-2">Licencia: {{colegio.licencia_colegio}}</h3>
-
+          </a>
 
           <button (click)="irAEditarColegio(colegio.id)" class="btn btn-primary">
             Editar

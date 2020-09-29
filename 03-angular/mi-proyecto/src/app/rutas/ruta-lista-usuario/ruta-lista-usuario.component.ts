@@ -75,7 +75,6 @@ export class RutaListaUsuarioComponent implements OnInit {
           console.error('Error', error);
         }
       )
-
   }
 
 }

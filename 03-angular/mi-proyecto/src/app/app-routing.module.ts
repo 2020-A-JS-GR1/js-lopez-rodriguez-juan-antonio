@@ -9,12 +9,29 @@ import {RutaEditarUsuarioComponent} from "./rutas/ruta-editar-usuario/ruta-edita
 import {EstaLogeadoGuard} from "./servicios/guards/esta-logeado.guard";
 import {EsAdministradorGuard} from "./servicios/guards/es-administrador.guard";
 import {EsSupervisorGuard} from "./servicios/guards/es-supervisor.guard";
+import {RutaProfesorComponent} from "./rutas/ruta-profesor/ruta-profesor.component";
+import {RutaColegioComponent} from "./rutas/ruta-colegio/ruta-colegio.component";
+import {RutaInicioExamenComponent} from "./rutas/ruta-inicio-examen/ruta-inicio-examen.component";
 
 const routes: Routes = [
   {
     component: RutaInicioComponent, //COMPONENTE
-    path: 'inicio'  //URL
+    path: 'inicio',  //URL
   },
+  {
+    component: RutaInicioExamenComponent, //COMPONENTE
+    path: 'inicioExamen',  //URL
+  },
+  {
+    component: RutaProfesorComponent, //COMPONENTE
+    path: 'profesor'  //URL
+  },
+  {
+    component: RutaColegioComponent,
+    path: 'colegio'
+  },
+
+
   {
     component: RutaLoginComponent, //COMPONENTE
     path: 'login'  //URL
@@ -53,7 +70,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/inicio',
+    redirectTo: '/inicioExamen',
     pathMatch: 'full'
   },
 ];

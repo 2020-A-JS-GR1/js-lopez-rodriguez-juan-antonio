@@ -47,7 +47,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void{
-    this.mensajeConsola(true);
+    // this.mensajeConsola(true);
   }
 
   mensajeConsola(objeto: boolean) {

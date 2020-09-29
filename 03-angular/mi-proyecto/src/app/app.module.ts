@@ -23,6 +23,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {ButtonModule} from "primeng/button";
+import { RutaProfesorComponent } from './rutas/ruta-profesor/ruta-profesor.component';
+import { RutaColegioComponent } from './rutas/ruta-colegio/ruta-colegio.component';
+import { RutaInicioExamenComponent } from './rutas/ruta-inicio-examen/ruta-inicio-examen.component';
+import {ColegioService} from "./servicios/http/colegio.service";
+import {ProfesorService} from "./servicios/http/profesor.service";
 
 @NgModule({
   declarations: [ // componentes
@@ -35,7 +40,10 @@ import {ButtonModule} from "primeng/button";
     RutaListaUsuarioComponent,
     RutaCrearUsuarioComponent,
     RutaEditarUsuarioComponent,
-    FormularioUsuarioComponent
+    FormularioUsuarioComponent,
+    RutaProfesorComponent,
+    RutaColegioComponent,
+    RutaInicioExamenComponent,
   ],
   imports: [ // modulo vamos a usar
     BrowserModule,  // importa el ngfor y el ngif
@@ -51,7 +59,9 @@ import {ButtonModule} from "primeng/button";
     AuthService,
     EstaLogeadoGuard,
     EsAdministradorGuard,
-    EsSupervisorGuard
+    EsSupervisorGuard,
+    ColegioService,
+    ProfesorService,
   ],
   bootstrap: [AppComponent]
 })

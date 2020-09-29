@@ -28,6 +28,13 @@ import { RutaColegioComponent } from './rutas/ruta-colegio/ruta-colegio.componen
 import { RutaInicioExamenComponent } from './rutas/ruta-inicio-examen/ruta-inicio-examen.component';
 import {ColegioService} from "./servicios/http/colegio.service";
 import {ProfesorService} from "./servicios/http/profesor.service";
+import { FormularioColegioComponent } from './componentes/formularios/formulario-colegio/formulario-colegio.component';
+import { FormularioProfesorComponent } from './componentes/formularios/formulario-profesor/formulario-profesor.component';
+import { RutaCrearColegioComponent } from './rutas/ruta-crear-colegio/ruta-crear-colegio.component';
+import { RutaCrearProfesorComponent } from './rutas/ruta-crear-profesor/ruta-crear-profesor.component';
+import { RutaEditarColegioComponent } from './rutas/ruta-editar-colegio/ruta-editar-colegio.component';
+import { RutaEditarProfesorComponent } from './rutas/ruta-editar-profesor/ruta-editar-profesor.component';
+import { RutaDetalleColegioComponent } from './rutas/ruta-detalle-colegio/ruta-detalle-colegio.component';
 
 @NgModule({
   declarations: [ // componentes
@@ -44,6 +51,13 @@ import {ProfesorService} from "./servicios/http/profesor.service";
     RutaProfesorComponent,
     RutaColegioComponent,
     RutaInicioExamenComponent,
+    FormularioColegioComponent,
+    FormularioProfesorComponent,
+    RutaCrearColegioComponent,
+    RutaCrearProfesorComponent,
+    RutaEditarColegioComponent,
+    RutaEditarProfesorComponent,
+    RutaDetalleColegioComponent,
   ],
   imports: [ // modulo vamos a usar
     BrowserModule,  // importa el ngfor y el ngif

@@ -12,12 +12,19 @@ import {EsSupervisorGuard} from "./servicios/guards/es-supervisor.guard";
 import {RutaProfesorComponent} from "./rutas/ruta-profesor/ruta-profesor.component";
 import {RutaColegioComponent} from "./rutas/ruta-colegio/ruta-colegio.component";
 import {RutaInicioExamenComponent} from "./rutas/ruta-inicio-examen/ruta-inicio-examen.component";
+import {RutaCrearColegioComponent} from "./rutas/ruta-crear-colegio/ruta-crear-colegio.component";
+import {RutaEditarColegioComponent} from "./rutas/ruta-editar-colegio/ruta-editar-colegio.component";
+import {RutaDetalleColegioComponent} from "./rutas/ruta-detalle-colegio/ruta-detalle-colegio.component";
+import {RutaCrearProfesorComponent} from "./rutas/ruta-crear-profesor/ruta-crear-profesor.component";
+import {RutaEditarProfesorComponent} from "./rutas/ruta-editar-profesor/ruta-editar-profesor.component";
 
 const routes: Routes = [
   {
     component: RutaInicioComponent, //COMPONENTE
     path: 'inicio',  //URL
   },
+
+  // PARA EL EXAMEN 2B
   {
     component: RutaInicioExamenComponent, //COMPONENTE
     path: 'inicioExamen',  //URL
@@ -27,9 +34,30 @@ const routes: Routes = [
     path: 'profesor'  //URL
   },
   {
+    component: RutaCrearProfesorComponent,
+    path: 'crearProfesor'
+  },
+  {
+    component: RutaEditarProfesorComponent,
+    path: 'editarProfesor'
+  },
+  {
     component: RutaColegioComponent,
     path: 'colegio'
   },
+  {
+    component: RutaCrearColegioComponent,
+    path: 'crearColegio'
+  },
+  {
+    component: RutaEditarColegioComponent,
+    path: 'editarColegio'
+  },
+  {
+    component: RutaDetalleColegioComponent,
+    path: 'detalleColegio'
+  },
+
 
 
   {

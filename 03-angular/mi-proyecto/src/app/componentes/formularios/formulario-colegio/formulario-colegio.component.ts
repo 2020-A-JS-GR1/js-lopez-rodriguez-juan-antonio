@@ -9,15 +9,6 @@ import {Router} from "@angular/router";
 })
 export class FormularioColegioComponent implements OnInit {
 
-// {
-//   "nombre_colegio":"FAE",
-//   "direccion_colegio":"La Prensa",
-//   "aforo_colegio":500,
-//   "bachillerato_unificado_colegio":"si",
-//   "licencia_colegio":"si"
-//
-// }
-
   @Input()
   nombreColegioInput:string;
 

@@ -47,11 +47,11 @@
   <div>
     <!--    <label for="telefono_establecimiento">Telefono: </label>-->
     <input id="aforo_colegio"
-           type="text" name="aforo_colegio"
+           type="number" name="aforo_colegio"
            [(ngModel)]="aforoColegio"
            required
            #aforoCampo="ngModel"
-           minlength="2"
+           min="1"
            class="fadeIn third"
            placeholder="Aforo"
     >

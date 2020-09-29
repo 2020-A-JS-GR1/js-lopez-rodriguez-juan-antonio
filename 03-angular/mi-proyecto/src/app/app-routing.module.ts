@@ -39,7 +39,7 @@ const routes: Routes = [
   },
   {
     component: RutaEditarProfesorComponent,
-    path: 'editarProfesor'
+    path: 'editarProfesor/:id'
   },
   {
     component: RutaColegioComponent,
@@ -51,11 +51,11 @@ const routes: Routes = [
   },
   {
     component: RutaEditarColegioComponent,
-    path: 'editarColegio'
+    path: 'editarColegio/:id'
   },
   {
     component: RutaDetalleColegioComponent,
-    path: 'detalleColegio'
+    path: 'detalleColegio/:id'
   },
 
 

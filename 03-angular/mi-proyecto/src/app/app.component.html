@@ -1,24 +1,32 @@
-<ul>
-  <li>
-    <a [routerLink]="['inicioExamen']">
-      Inicio
-    </a>
-  </li>
-  <li>
-    <a [routerLink]="['colegio']">
-      Colegios
-    </a>
-  </li>
-  <li>
-    <a [routerLink]="['profesor']">
-      Profesores
-    </a>
-  </li>
-</ul>
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" [routerLink]="['inicioExamen']">Colegio->Profesores</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a [routerLink]="['colegio']" class="nav-link" href="#">
+            Colegios <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item active" >
+          <a [routerLink]="['profesor']" class="nav-link" href="#">
+            Profesores <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+</div>
 
 <router-outlet>
 
 </router-outlet>
+
 
 
 <!--&lt;!&ndash;<h1>Lista de peliculas</h1>&ndash;&gt;-->
